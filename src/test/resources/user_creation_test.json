@@ -22,6 +22,41 @@
           "email": "jane@gmail.com"
         }
       }
+    },{
+      "name": "create_user_check_firstname_validation_message",
+      "method": "POST",
+      "url": "/api/users",
+      "request": {
+        "body": {
+          "lastName": "Smith",
+          "email": "jane@gmail.com"
+        }
+      },
+
+      "assertions": {
+        "status": 400,
+        "body": {
+          "message": "first name should not be empty"
+        }
+      }
+    },{
+      "name": "create_user_check_email_validation_message",
+      "method": "POST",
+      "url": "/api/users",
+      "request": {
+        "body": {
+          "firstName": "jane",
+          "lastName": "Smith",
+          "email": "jane"
+        }
+      },
+
+      "assertions": {
+        "status": 400,
+        "body": {
+          "message": "please provide a valid email!"
+        }
+      }
     }
   ]
 }
