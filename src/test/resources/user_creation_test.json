@@ -1,0 +1,27 @@
+{
+  "scenarioName": "user creation test",
+  "steps": [
+    {
+      "name": "create_user_successfuly",
+      "method": "POST",
+      "url": "/api/users",
+      "request": {
+        "body": {
+          "firstName": "Jane",
+          "lastName": "Smith",
+          "email": "jane@gmail.com"
+
+        }
+      },
+
+      "assertions": {
+        "status": 201,
+        "body": {
+          "firstName": "Jane",
+          "lastName": "Smith",
+          "email": "jane@gmail.com"
+        }
+      }
+    }
+  ]
+}
