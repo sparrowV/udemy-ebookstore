@@ -1,0 +1,46 @@
+{
+  "scenarioName": "create books using tokens",
+  "steps": [
+    {
+      "name": "create_book_using_value_tokens",
+      "method": "POST",
+      "url": "/api/books",
+      "request": {
+        "body": {
+          "title": "${RANDOM.STRING:8}",
+          "authors": "${STATIC.ALPHABET:4}"
+        }
+      },
+      "assertions": {
+        "status": 201,
+        "body": {
+          "authors": "abcd"
+        }
+
+      }
+    },
+    {
+      "name": "create_book_with_external_json_body",
+      "method": "POST",
+      "url": "/api/books",
+      "request": {
+        "body": "${JSON.FILE:reusable_content/sample_book_body.json}"
+      },
+      "assertions": {
+        "status": 201,
+        "body": {
+          "title": "my title",
+          "authors": "authors1 , authors2"
+        }
+      }
+    },{
+      "name": "get_books_and_check_array_size",
+      "method": "GET",
+      "url": "/api/books",
+      "request": {},
+      "verify": {
+        "body.SIZE": "$GT.100"
+      }
+    }
+  ]
+}
