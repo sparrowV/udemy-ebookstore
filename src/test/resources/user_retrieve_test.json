@@ -1,0 +1,20 @@
+{
+  "scenarioName": "check if we can retrieve users",
+  "steps": [
+    {
+      "name": "check firstname in user array",
+      "method": "GET",
+      "url": "/api/users",
+      "request": {},
+
+      "validators": [
+        {
+          "field": "$.body[1].firstName",
+          "value": "kateadsadsadsad"
+        }
+      ]
+
+
+    }
+  ]
+}

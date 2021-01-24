@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -46,5 +47,9 @@ public class UserService {
         if (!StringUtils.hasText(user.getEmail()) || !isValidEmail(user.getEmail())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "please provide a valid email!");
         }
+    }
+
+    public List<User> findAll() {
+        return userRepository.findAll();
     }
 }

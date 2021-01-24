@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@SequenceGenerator(name="userSeq",sequenceName = "user_seq")
+@SequenceGenerator(name="userSeq",sequenceName = "user_seq",allocationSize = 1)
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "userSeq")

@@ -13,4 +13,11 @@ public class UserEndpointsTest {
     public void test_user_creation(){
 
     }
+
+
+    @Test
+    @Scenario("user_retrieve_test.json")
+    public void test_user_retrieve(){
+
+    }
 }

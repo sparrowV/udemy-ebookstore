@@ -1,13 +1,10 @@
 {
   "scenarioName": "user creation test",
-//  "ignoreStepFailures": true,
-//  "loop": 2,
   "steps": [
     {
       "name": "create_user_successfuly",
       "method": "POST",
       "url": "/api/users",
-//      "ignoreStep": true,
       "request": {
         "body": {
           "firstName": "Jane",
@@ -16,7 +13,6 @@
 
         }
       },
-//      "verifyMode": "STRICT",
       "verify": {
         "status": 201,
         "body": {
