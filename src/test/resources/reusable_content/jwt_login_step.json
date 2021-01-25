@@ -1,0 +1,17 @@
+{
+  "name": "login",
+  "method": "POST",
+  "url": "/login",
+  "request": {
+    "body": {
+      "username": "jwt",
+      "password": "jwt"
+    }
+  },
+  "assertions": {
+    "status": 200,
+    "headers": {
+      "Authorization": "$NOT.NULL"
+    }
+  }
+}

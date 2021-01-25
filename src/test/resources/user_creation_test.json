@@ -2,7 +2,7 @@
   "scenarioName": "user creation test",
   "steps": [
     {
-      "name": "create_user_successfuly",
+      "name": "cant access protected resource/endpoint without login first",
       "method": "POST",
       "url": "/api/users",
       "request": {
@@ -10,7 +10,29 @@
           "firstName": "Jane",
           "lastName": "Smith",
           "email": "jane@gmail.com"
-
+        }
+      },
+      "verify": {
+        "status": 401,
+        "body": {
+          "error": "Please provide a bearer token!"
+        }
+      }
+    },{
+      "stepFile": "${JSON.FILE:reusable_content/jwt_login_step.json}"
+    },
+    {
+      "name": "create_user_successfuly",
+      "method": "POST",
+      "url": "/api/users",
+      "request": {
+        "headers": {
+          "Authorization": "${$.login.response.headers.Authorization[0]}"
+        },
+        "body": {
+          "firstName": "Jane",
+          "lastName": "Smith",
+          "email": "jane@gmail.com"
         }
       },
       "verify": {
@@ -21,35 +43,41 @@
           "email": "jane@gmail.com"
         }
       }
-    },{
+    },
+    {
       "name": "create_user_check_firstname_validation_message",
       "method": "POST",
       "url": "/api/users",
       "request": {
+        "headers": {
+          "Authorization": "${$.login.response.headers.Authorization[0]}"
+        },
         "body": {
           "lastName": "Smith",
           "email": "jane@gmail.com"
         }
       },
-
       "assertions": {
         "status": 400,
         "body": {
           "message": "first name should not be empty"
         }
       }
-    },{
+    },
+    {
       "name": "create_user_check_email_validation_message",
       "method": "POST",
       "url": "/api/users",
       "request": {
+        "headers": {
+          "Authorization": "${$.login.response.headers.Authorization[0]}"
+        },
         "body": {
           "firstName": "jane",
           "lastName": "Smith",
           "email": "jane"
         }
       },
-
       "assertions": {
         "status": 400,
         "body": {
