@@ -1,0 +1,9 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:soap="http://soap.ebookstore.odvali.ge/">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <soap:getName>
+            <!--Optional:-->
+            <name>hello</name>
+        </soap:getName>
+    </soapenv:Body>
+</soapenv:Envelope>

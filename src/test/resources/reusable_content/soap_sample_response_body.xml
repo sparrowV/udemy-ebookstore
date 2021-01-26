@@ -1,0 +1,1 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"><soap:Body><ns2:getNameResponse xmlns:ns2="http://soap.ebookstore.odvali.ge/"><return>hello</return></ns2:getNameResponse></soap:Body></soap:Envelope>

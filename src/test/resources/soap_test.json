@@ -1,0 +1,21 @@
+{
+  "scenarioName": "test sample soap service",
+  "steps": [
+    {
+      "name": "test getName soap method",
+      "url": "http://localhost:8080/sample-soap-service?wsdl",
+      "method": "POST",
+      "request": {
+        "headers": {
+          "Content-Type": "text/xml; charset=utf8",
+          "SOAPAction": "http://odvali.ge/getName"
+        },
+        "body": "${XML.FILE:reusable_content/soap_sample_request_body.xml}"
+      },
+      "assertions": {
+        "status": 200,
+        "rawBody": "${XML.FILE:reusable_content/soap_sample_response_body.xml}"
+      }
+    }
+  ]
+}
