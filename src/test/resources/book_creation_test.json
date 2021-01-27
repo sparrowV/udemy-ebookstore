@@ -2,10 +2,16 @@
   "scenarioName": "create books using tokens",
   "steps": [
     {
+      "stepFile": "${JSON.FILE:reusable_content/jwt_login_step.json}"
+    },
+    {
       "name": "create_book_using_value_tokens",
       "method": "POST",
       "url": "/api/books",
       "request": {
+        "headers": {
+          "Authorization": "${$.login.response.headers.Authorization[0]}"
+        },
         "body": {
           "title": "${RANDOM.STRING:8}",
           "authors": "${STATIC.ALPHABET:4}"
@@ -24,6 +30,9 @@
       "method": "POST",
       "url": "/api/books",
       "request": {
+        "headers": {
+          "Authorization": "${$.login.response.headers.Authorization[0]}"
+        },
         "body": "${JSON.FILE:reusable_content/sample_book_body.json}"
       },
       "assertions": {
@@ -34,12 +43,17 @@
         }
       }
     },{
+
       "name": "get_books_and_check_array_size",
       "method": "GET",
       "url": "/api/books",
-      "request": {},
+      "request": {
+        "headers": {
+          "Authorization": "${$.login.response.headers.Authorization[0]}"
+        }
+      },
       "verify": {
-        "body.SIZE": "$GT.100"
+        "body.SIZE": "$GT.0"
       }
     }
   ]

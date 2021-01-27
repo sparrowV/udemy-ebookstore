@@ -1,16 +1,22 @@
 {
   "scenarioName": "check if we can retrieve users",
-  "steps": [
+  "steps": [{
+    "stepFile": "${JSON.FILE:reusable_content/jwt_login_step.json}"
+  },
     {
       "name": "check firstname in user array",
       "method": "GET",
       "url": "/api/users",
-      "request": {},
+      "request": {
+        "headers": {
+          "Authorization": "${$.login.response.headers.Authorization[0]}"
+        }
+      },
 
       "validators": [
         {
           "field": "$.body[1].firstName",
-          "value": "kateadsadsadsad"
+          "value": "kate"
         }
       ]
 
