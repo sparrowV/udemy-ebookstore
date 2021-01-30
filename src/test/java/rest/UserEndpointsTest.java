@@ -1,3 +1,5 @@
+package rest;
+
 import org.jsmart.zerocode.core.domain.Scenario;
 import org.jsmart.zerocode.core.domain.TargetEnv;
 import org.jsmart.zerocode.core.runner.ZeroCodeUnitRunner;
@@ -9,14 +11,14 @@ import org.junit.runner.RunWith;
 public class UserEndpointsTest {
 
     @Test
-    @Scenario("user_creation_test.json")
+    @Scenario("rest/user_creation_test.json")
     public void test_user_creation(){
 
     }
 
 
     @Test
-    @Scenario("user_retrieve_test.json")
+    @Scenario("rest/user_retrieve_test.json")
     public void test_user_retrieve(){
 
     }

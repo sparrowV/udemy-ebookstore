@@ -1,0 +1,18 @@
+{
+  "scenarioName": "example of method exec",
+  "steps": [
+    {
+      "name": "example of squre method exec",
+      "url": "methodexec.MethodExec",
+      "method": "square",
+      "request": {
+        "a": 5,
+        "b": 10
+      },
+
+      "assertions": {
+        "abcd": 25
+      }
+    }
+  ]
+}
