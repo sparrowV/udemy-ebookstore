@@ -1,5 +1,6 @@
 package ge.odvali.ebookstore.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Parameter;
 
@@ -64,5 +65,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Hidden
+    public List<EBook> geteBooks() {
+        return eBooks;
+    }
+
+    public void seteBooks(List<EBook> eBooks) {
+        this.eBooks = eBooks;
     }
 }

@@ -1,0 +1,37 @@
+{
+  "scenarioName": "buy book user -db testing",
+  "steps": [
+    {
+      "stepFile": "${JSON.FILE:reusable_content/jwt_login_step.json}"
+    },{
+      "name": "buy_book",
+      "url": "/api/users/buy-book",
+      "method": "POST",
+      "request": {
+        "headers": {
+          "Authorization": "${$.login.response.headers.Authorization[0]}"
+        },
+        "body": {
+          "userId": 1,
+          "bookId": 2
+        }
+      },
+
+      "assertions": {
+        "status": 200
+      }
+    },
+    {
+      "name": "get user books data",
+      "url": "db.DbUtils",
+      "method": "getUserBookData",
+      "request": {
+        "userId": 1,
+        "bookId": 2
+      },
+      "verify": {
+        "result": "FOUND!"
+      }
+    }
+  ]
+}

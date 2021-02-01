@@ -1,6 +1,7 @@
 package ge.odvali.ebookstore.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Parameter;
 
@@ -9,7 +10,7 @@ import java.util.List;
 
 @Entity
 @Table(name="EBOOK")
-@SequenceGenerator(sequenceName = "ebook_seq",name = "ebookSeq")
+@SequenceGenerator(sequenceName = "ebook_seq",name = "ebookSeq",allocationSize = 1)
 public class EBook {
 
     @Id
@@ -21,6 +22,7 @@ public class EBook {
     private String authors; //comma separated list of authors
     @ManyToMany(mappedBy = "eBooks")
     @Hidden
+    @JsonBackReference
     private List<User> owners;  //the list of the Users who own this book
 
     public Long getId() {

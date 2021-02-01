@@ -1,5 +1,5 @@
 package ge.odvali.ebookstore;
-
+import org.h2.tools.Server;
 import ge.odvali.ebookstore.soap.SampleSoapImpl;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -15,6 +15,7 @@ import org.springframework.context.annotation.Bean;
 import sun.security.krb5.internal.APOptions;
 
 import javax.xml.ws.Endpoint;
+import java.sql.SQLException;
 
 @SpringBootApplication
 public class EbookstoreApplication {
@@ -32,5 +33,10 @@ public class EbookstoreApplication {
 				SpringApplication.run(EbookstoreApplication.class, args);
 		}
 
+	@Bean(initMethod = "start", destroyMethod = "stop")
+	public Server inMemoryH2DatabaseaServer() throws SQLException {
+		return Server.createTcpServer(
+				"-tcp", "-tcpAllowOthers", "-tcpPort", "9090");
+	}
 
 }

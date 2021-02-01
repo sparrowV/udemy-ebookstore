@@ -1,6 +1,9 @@
 package ge.odvali.ebookstore.services;
 
+import ge.odvali.ebookstore.entities.BuyBookDTO;
+import ge.odvali.ebookstore.entities.EBook;
 import ge.odvali.ebookstore.entities.User;
+import ge.odvali.ebookstore.repositories.BookRepository;
 import ge.odvali.ebookstore.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,7 +12,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,6 +23,9 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private BookRepository bookRepository;
 
     private static final String EMAIL_PATTERN =
             "^(?=.{1,64}@)[\\p{L}0-9_-]+(\\.[\\p{L}0-9_-]+)*@"
@@ -51,5 +59,28 @@ public class UserService {
 
     public List<User> findAll() {
         return userRepository.findAll();
+    }
+
+    @Transactional
+    public ResponseEntity buyBook(BuyBookDTO buyBookDTO) {
+        Optional<User> optionalUser = userRepository.findById(buyBookDTO.getUserId());
+        User user;
+        if (optionalUser.isPresent())
+            user = optionalUser.get();
+        else
+            return new ResponseEntity("user does no exist", HttpStatus.BAD_REQUEST);
+
+        Optional<EBook> optionalBook = bookRepository.findById(buyBookDTO.getBookId());
+        EBook book;
+        if (optionalBook.isPresent())
+            book = optionalBook.get();
+        else
+            return new ResponseEntity("book does no exist", HttpStatus.BAD_REQUEST);
+
+        user.geteBooks().add(book);
+        book.getOwners().add(user);
+        userRepository.save(user);
+        bookRepository.save(book);
+        return new ResponseEntity("Operation Ended successfully", HttpStatus.OK);
     }
 }
