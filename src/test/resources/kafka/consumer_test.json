@@ -1,0 +1,60 @@
+{
+  "scenarioName": "test_consumer",
+  "steps": [
+    {
+      "stepFile": "${JSON.FILE:reusable_content/jwt_login_step.json}"
+    },
+    {
+      "name": "create_subscription_for_a_user",
+      "url": "/api/users/book-subscription",
+      "method": "POST",
+      "request": {
+        "headers": {
+          "Authorization": "${$.login.response.headers.Authorization[0]}"
+        },
+        "body": {
+          "userId": 1,
+          "bookTitle": "history"
+        }
+      },
+      "assertions": {
+        "status": 200
+      }
+    },
+    {
+      "name": "create_a_test_prdocuer",
+      "url": "kafka-topic:book-creation-topic",
+      "method": "produce",
+      "request": {
+        "recordType": "JSON",
+        "records": [
+          {
+            "key": "${RANDOM.NUMBER}",
+            "value": {
+              "bookTitle": "${$.create_subscription_for_a_user.request.body.bookTitle}"
+            }
+          }
+        ]
+      },
+      "assertions": {
+        "status": "Ok"
+      }
+    },
+    {
+      "name": "get_user_notification",
+      "url": "db.DbUtils",
+      "method": "getUserNotification",
+      "retry": {
+        "max": 3,
+        "delay": 1000
+      },
+      "request": {
+        "userId": "${$.create_subscription_for_a_user.request.body.userId}",
+        "message": "The book with title=${$.create_subscription_for_a_user.request.body.bookTitle} is now available"
+      },
+      "verify": {
+        "result": "FOUND!"
+      }
+    }
+  ]
+}

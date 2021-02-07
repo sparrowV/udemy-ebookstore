@@ -14,4 +14,9 @@ public class KafkaTest {
     @Scenario("kafka/producer_test.json")
     public void test_producer() {
     }
+
+    @Test
+    @Scenario("kafka/consumer_test.json")
+    public void test_consumer() {
+    }
 }
