@@ -2,6 +2,7 @@ package ge.odvali.ebookstore.controllers;
 
 import ge.odvali.ebookstore.entities.BuyBookDTO;
 import ge.odvali.ebookstore.entities.User;
+import ge.odvali.ebookstore.entities.UserBookId;
 import ge.odvali.ebookstore.services.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -32,5 +33,10 @@ public class UserController {
     @PostMapping("/buy-book")
     public ResponseEntity buyBook(@RequestBody BuyBookDTO buyBookDTO) {
         return userService.buyBook(buyBookDTO);
+    }
+
+    @PostMapping("/book-subscription")
+    public ResponseEntity subscribeToBook(@RequestBody UserBookId userBookId) {
+        return userService.subscribeToBook(userBookId);
     }
 }

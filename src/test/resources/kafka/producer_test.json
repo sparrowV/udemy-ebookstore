@@ -1,0 +1,47 @@
+{
+  "scenarioName": "test producer",
+  "steps": [
+    {
+      "stepFile": "${JSON.FILE:reusable_content/jwt_login_step.json}"
+    },
+    {
+      "name": "create_a_book_so_that_our_prodcuer_create_the_event",
+      "method": "POST",
+      "url": "/api/books",
+      "request": {
+        "headers": {
+          "Authorization": "${$.login.response.headers.Authorization[0]}"
+        },
+        "body": {
+          "title": "vikings",
+          "authors": "some atuhors"
+        }
+      },
+      "verify": {
+        "status": 201
+      }
+    },
+    {
+      "name": "create_test_consumer",
+      "url": "kafka-topic:book-creation-topic",
+      "method": "consume",
+      "request": {
+        "consumerLocalConfigs": {
+          "recordType": "JSON"
+        }
+      },
+      "retry": {
+        "max": 2,
+        "delay": 1000
+      },
+      "validators": [
+        {
+          "field": "$.records[?(@.value.bookTitle == 'vikings')].value.bookTitle",
+          "value": [
+            "vikings"
+          ]
+        }
+      ]
+    }
+  ]
+}

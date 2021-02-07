@@ -26,7 +26,7 @@ public class DbUtils {
     private String dbPassword;
 
 
-    private  JdbcTemplate getJdbcTemplate() {
+    private JdbcTemplate getJdbcTemplate() {
         SimpleDriverDataSource ds = new SimpleDriverDataSource();
         ds.setDriver(new org.h2.Driver());
         ds.setUrl(dbHostUrl);
@@ -56,6 +56,25 @@ public class DbUtils {
         return wrapper;
     }
 
+
+    public Map<String, Object> getUserNotification(Map<String, String> params) {
+        String userId = params.get("userId");
+        String message = params.get("message");
+        String sql = "SELECT * \n" +
+                "from  USER_NOTIFICATION \n" +
+                "where USER_ID=" + userId + "\n" +
+                "and MESSAGE=" + "'" + message + "';";
+        JdbcTemplate jdbcTemplate = getJdbcTemplate();
+        List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql);
+        String res;
+        if (!rows.isEmpty())
+            res = "FOUND!";
+        else
+            res = "NOT FOUND";
+        Map<String, Object> wrapper = new HashMap<>();
+        wrapper.put("result", res);
+        return wrapper;
+    }
 
 
 }
