@@ -50,6 +50,7 @@
             <groupId>org.jsmart</groupId>
             <artifactId>zerocode-tdd</artifactId>
             <version>1.3.27</version>
+            <scope>test</scope>
             <exclusions>
                 <exclusion>  <!-- declare the exclusion here -->
                     <groupId>org.junit.jupiter</groupId>
