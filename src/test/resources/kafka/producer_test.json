@@ -31,8 +31,8 @@
         }
       },
       "retry": {
-        "max": 2,
-        "delay": 1000
+        "max": 5,
+        "delay": 10
       },
       "validators": [
         {
