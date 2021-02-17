@@ -31,6 +31,7 @@ public class BookProducer {
 
 
     public void send(String dataToSend, String topic) {
+        System.out.println("Sending data to book-creation-topic : " + dataToSend);
         ProducerRecord<String, String> record =
                 new ProducerRecord<String, String>(topic, UUID.randomUUID().toString(), dataToSend);
         producer.send(record);
